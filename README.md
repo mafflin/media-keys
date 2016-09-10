@@ -1,4 +1,4 @@
-# mockeys
+# Media Keys
 
 Gnome-shell extension that adds Media Player buttons to the panel.
 
