@@ -16,7 +16,7 @@ function _next() {
 
 function init() {
   buttonPrev = new St.Button({ style_class: 'panel-button'});
-  let icon = new St.Icon({ icon_name: 'media-skip-forward-symbolic-rtl',
+  let icon = new St.Icon({ icon_name: 'media-skip-backward-symbolic',
                            style_class: 'system-status-icon' });
   buttonPrev.set_child(icon);
   buttonPrev.connect('button-press-event', _prev);
