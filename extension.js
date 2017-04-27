@@ -5,8 +5,6 @@ const Main = imports.ui.main;
 const GLib = imports.gi.GLib;
 const Util = imports.misc.util;
 
-const mote = GLib.get_home_dir() + '/.bin/mote';
-
 const iconPrev = new St.Icon({
   icon_name: 'media-skip-backward-symbolic',
   style_class: 'system-status-icon'

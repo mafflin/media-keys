@@ -6,8 +6,8 @@ Gnome-shell extension that adds Media Player buttons to the panel.
 
 ### Changelog
 
-* v.1
-  - First version
+* v.5
+  - Works with X11 only!
 
 ### Notes
 
