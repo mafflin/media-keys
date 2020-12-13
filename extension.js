@@ -1,58 +1,51 @@
-/*jshint esversion: 6 */
+'use strict';
 
-const St = imports.gi.St;
-const Main = imports.ui.main;
-const GLib = imports.gi.GLib;
-const Util = imports.misc.util;
+const St = imports.gi.St
+const Main = imports.ui.main
+const GLib = imports.gi.GLib
+const Util = imports.misc.util
 
-const iconPrev = new St.Icon({
-  icon_name: 'media-skip-backward-symbolic',
-  style_class: 'system-status-icon'
-});
-const iconPause = new St.Icon({
-  icon_name: 'media-playback-pause-symbolic',
-  style_class: 'system-status-icon'
-});
-const iconNext = new St.Icon({
-  icon_name: 'media-skip-forward-symbolic',
-  style_class: 'system-status-icon'
-});
+const executeAction = (action) => Util.spawn(['playerctl', action])
 
-let buttonPrev = new St.Button({ style_class: 'panel-button'});
-let buttonPause = new St.Button({ style_class: 'panel-button'});
-let buttonNext = new St.Button({ style_class: 'panel-button'});
-
-function _pause() {
-  Util.spawn(['xdotool', 'key', 'XF86AudioPlay']);
+const PANEL_POSITON = 2
+const BUTTONS = {
+  prev: {
+    icon: 'media-skip-backward-symbolic',
+    action: () => executeAction('previous'),
+  },
+  pause: {
+    icon: 'media-skip-pause-symbolic',
+    action: () => executeAction('play-pause'),
+  },
+  next: {
+    icon: 'media-skip-forward-symbolic',
+    action: () => executeAction('next'),
+  },
 }
 
-function _prev() {
-  Util.spawn(['xdotool', 'key', 'XF86AudioPrev']);
-}
-
-function _next() {
-  Util.spawn(['xdotool', 'key', 'XF86AudioNext']);
-}
+const buttons = Object.keys(BUTTONS).map((key) => {
+  const button = BUTTONS[key]
+  return {
+    ...button,
+    element: new St.Button({ style_class: 'panel-button' }),
+    icon: new St.Icon({
+      style_class: 'system-status-icon',
+      icon_name: button.icon,
+    }),
+  }
+})
 
 function init() {
-  buttonPrev.set_child(iconPrev);
-  buttonPrev.connect('button-press-event', _prev);
-
-  buttonPause.set_child(iconPause);
-  buttonPause.connect('button-press-event', _pause);
-
-  buttonNext.set_child(iconNext);
-  buttonNext.connect('button-press-event', _next);
+  buttons.forEach((button) => {
+    button.element.set_child(button.icon)
+    button.element.connect('button-press-event', button.action)
+  })
 }
 
 function enable() {
-  Main.panel._rightBox.insert_child_at_index(buttonNext, 2);
-  Main.panel._rightBox.insert_child_at_index(buttonPause, 2);
-  Main.panel._rightBox.insert_child_at_index(buttonPrev, 2);
+  buttons.forEach(({ element }) => Main.panel._rightBox.insert_child_at_index(element, PANEL_POSITON))
 }
 
 function disable() {
-  Main.panel._rightBox.remove_child(buttonPrev);
-  Main.panel._rightBox.remove_child(buttonPause);
-  Main.panel._rightBox.remove_child(buttonNext);
+  buttons.forEach(({ element }) => Main.panel._rightBox.remove_child(element))
 }
