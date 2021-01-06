@@ -9,17 +9,17 @@ const executeAction = (action) => Util.spawn(['playerctl', action])
 
 const PANEL_POSITON = 2
 const BUTTONS = {
-  prev: {
-    icon: 'media-skip-backward-symbolic',
-    action: () => executeAction('previous'),
-  },
-  pause: {
-    icon: 'media-skip-pause-symbolic',
-    action: () => executeAction('play-pause'),
-  },
   next: {
     icon: 'media-skip-forward-symbolic',
     action: () => executeAction('next'),
+  },
+  pause: {
+    icon: 'media-playback-pause-symbolic',
+    action: () => executeAction('play-pause'),
+  },
+  prev: {
+    icon: 'media-skip-backward-symbolic',
+    action: () => executeAction('previous'),
   },
 }
 
