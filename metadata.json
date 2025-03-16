@@ -1,6 +1,6 @@
 {
   "url": "https://github.com/mafflin/media-keys",
-  "version": 7,
+  "version": 8,
   "description": "Adds media player buttons to the panel. Requires playerctl.",
   "settings-schema": "org.gnome.shell.extensions.media-keys",
   "uuid": "media-keys@mafflin",
@@ -16,6 +16,15 @@
     "3.30",
     "3.32",
     "3.36",
-    "3.38"
+    "3.38",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48"
   ]
 }
